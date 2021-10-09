@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: golang-pipeline
+spec:
+  resources:
+    - name: repo
+      type: git
+
+  tasks:
+  # Run unit test, Security Check and Go Build
+    - name: stage-one-go-build
+      params:
+        - name: CGO_ENABLED
+          value: "0"
+        - name: FLAGS
+          value: "-v"
+        - name: GOOS
+          value: "linux"
+        - name: packages
+          value: "./..."
+        - name: DEST_FOLDER
+          value: './cmd/main'
+      resources:
+        inputs:
+          - name: repo
+            resource: repo
+      taskRef:
+        name: golang-task-one-go-build
+
+     # Build docker image and push to registry
+    - name: stage-two-build-and-push
+      params:
+          - name: IMAGE_REPO
+            value: 'registry.ns0.civo.com/images/golangbackend'
+          - name: IMAGE_TAG
+            value: 'webhook1'
+          - name: ARGO_APP
+            value: "argolang"
+      taskRef:
+        name: golang-task-two-docker-build-push
+      runAfter:
+        - stage-one-go-build
+      resources:
+        inputs:
+          - name: repo      # name of the Task input (see Task definition)
+            resource: repo  # name of the Pipeline resource
