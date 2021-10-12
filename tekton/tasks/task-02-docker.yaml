@@ -4,9 +4,10 @@ metadata:
   name: golang-task-two-docker-build-push
 spec:
   params:
-    - name: IMAGE_TAG
     - name: IMAGE_REPO
-    - name: ARGO_APP
+      description: The image registry
+    - name: IMAGE_TAG
+      description: tag of the docker image
   resources:
     inputs:
       - name: repo
@@ -22,18 +23,6 @@ spec:
         - --dockerfile=Dockerfile
         - --context=/workspace/repo
         - --destination=$(params.IMAGE_REPO):$(params.IMAGE_TAG)
-
-#    - name: deploy-argocd
-#      image: argoproj/argocd:v1.7.7
-#      env:
-#      - name: ARGOCD_SERVER
-#        value: argocd-server.argocd
-#      script: |
-#        #!/usr/bin/env sh
-#        echo "Start Deploying Argo!"
-#       set -e      
-#        argocd app sync $(params.ARGO_APP) --insecure
-#        argocd app wait $(params.ARGO_APP) --sync --health --operation --insecure
 
 --- 
 
