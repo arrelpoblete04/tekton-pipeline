@@ -9,10 +9,27 @@ spec:
       elements:
       - cluster: master
         url: https://kubernetes.default.svc
-        repo: git@github.com:arrelpoblete04/GolangBackend.git
+        values:
+          namespace: default
+          repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+          targetRevision: master
+          valuesFiles:
+            - 'values.yaml'
       - cluster: stage
         url: https://kubernetes.default.svc
-        repo: git@github.com:arrelpoblete04/GolangBackend.git
+        values:
+          namespace: stage
+          repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+          targetRevision: stage
+          valuesFiles:
+            - 'values.yaml'
+            - 'values-stage.yaml'
+            
+  # - git:
+  #     repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+  #     revision: HEAD
+  #     directories:
+  #     - path: examples/git-generator-directory/cluster-addons/*
   template:
     metadata:
       name: '{{cluster}}-bgd'
@@ -23,14 +40,13 @@ spec:
           prune: true
           selfHeal: true
       source:
-        repoURL: '{{repo}}'
-        targetRevision: '{{cluster}}'
+        repoURL: '{{values.repoURL}}'
+        targetRevision: '{{values.targetRevision}}'
         path: GoBackend
         helm:
       # Helm values files for overriding values in the helm chart
       # The path is relative to the spec.source.path directory defined above
-          valueFiles:
-          - 'values-{{cluster}}.yaml'
+          valueFiles: ['{{values.valuesFiles}}']
       destination:
         server: '{{url}}'
-        namespace: '{{{{cluster}}}}'
+        namespace: '{{values.namespace}}'
