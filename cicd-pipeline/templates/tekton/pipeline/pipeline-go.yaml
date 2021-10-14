@@ -34,7 +34,7 @@ spec:
           - name: IMAGE_REPO
             value: 'registry.ns0.civo.com/images/golangbackend'
           - name: IMAGE_TAG
-            value: '1.0.5'  ## These are the params needed on the Task two
+            value: '1.1.0-stage'  ## These are the params needed on the Task two
       taskRef:
         name: golang-task-two-docker-build-push
       runAfter: ## With this spec, this task will only run after the stage-one-go-build
