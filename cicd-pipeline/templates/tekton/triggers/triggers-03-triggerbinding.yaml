@@ -7,4 +7,4 @@ spec:
     - name: gitrepositoryurl
       value: $(body.repository.ssh_url)
     - name: gitrevision
-      value: $(body.pull_request.head.sha)
+      value: $(body.head_commit.id)
