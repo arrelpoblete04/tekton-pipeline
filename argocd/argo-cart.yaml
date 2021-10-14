@@ -1,22 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-tekton-pipeline
+  name: argocd-tekton-cart
   namespace: argocd
 spec:
   destination:
-    server: https://kubernetes.default.svc
-    namespace: default
+    server: https://74.220.24.201:6443
+    namespace: prod
     
   source:
     path: GoBackend 
     repoURL: 'git@github.com:arrelpoblete04/GolangBackend.git'
-    targetRevision: master
+    targetRevision: stage
     helm:
       # Helm values files for overriding values in the helm chart
       # The path is relative to the spec.source.path directory defined above
       valueFiles:
       - values-master.yaml
+      - values-stage.yaml
 
   project: default
   syncPolicy:

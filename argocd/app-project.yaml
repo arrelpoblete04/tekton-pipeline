@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: remote-server-guestbook-proj
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: Project to configure argocd installation
+  destinations:
+  - namespace: 'prod'
+    server: https://74.220.24.201:6443
+  sourceRepos:
+  - git@github.com:arrelpoblete04/GolangBackend.git
