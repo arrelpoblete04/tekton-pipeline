@@ -20,7 +20,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.ref == 'refs/heads/master'"
+              value: "header.match('X-GitHub-Event', 'push')"
       bindings:
         - ref: github-pr-binding ##Name of PR Binding
       template:
