@@ -13,6 +13,14 @@ spec:
       - name: repo
         type: git
   steps:
+
+  ## ----------- Task 1 ----------- 
+    - name: ubuntu-test
+      image: ubuntu
+      workingDir: /workspace/repo
+      script: |
+         echo $(cut -d'=' -f2 version) > /workspace/repo/version
+
     - name: build-and-push
       image: gcr.io/kaniko-project/executor:debug-v0.19.0
       workingDir: /workspace/repo
@@ -21,9 +29,7 @@ spec:
           value: /tekton/home/.docker
       script: |
          #!/busybox/sh
-          echo "Task 4 - Start Golang Build"
-         /kaniko/executor --cache=true --dockerfile Dockerfile  --context `pwd` --destination=registry.ns0.civo.com/images/golangbackend:$(cut -d'=' -f2 version)
-         echo "Task 4 - Start Golang Build"
+         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(cut -d'=' -f2 version)
 
 --- 
 
