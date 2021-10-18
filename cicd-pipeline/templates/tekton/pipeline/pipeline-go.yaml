@@ -30,8 +30,9 @@ spec:
 
      # Build docker image and push to registry
     - name: stage-two-build-and-push
-      #params: ## These are the params needed on the Task two
-      #    - name: IMAGE_REPO
+      params: ## These are the params needed on the Task two
+          - name: IMAGE_REPO
+            value: 'registry.ns0.civo.com/images/golangbackend'
       taskRef:
         name: golang-task-two-docker-build-push
       runAfter: ## With this spec, this task will only run after the stage-one-go-build
