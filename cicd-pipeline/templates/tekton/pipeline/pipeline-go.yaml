@@ -61,14 +61,14 @@ spec:
 #      name: golang-pipeline-resource
 
 #--- 
-#apiVersion: tekton.dev/v1alpha1
-#kind: PipelineResource
-#metadata:
-#  name: golang-pipeline-resource
-#spec:
-#  type: git
-#  params:
-#    - name: url
-#      value: git@github.com:arrelpoblete04/GolangBackend.git #Use this if the repo is PRIVATE, use https URL if repo is PUBLIC (https://github.com/arrelpoblete04/GolangBackend)
-#    - name: revision
-#      value: master 
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: golang-pipeline-resource
+spec:
+  type: git
+  params:
+    - name: url
+      value: git@github.com:arrelpoblete04/GolangBackend.git #Use this if the repo is PRIVATE, use https URL if repo is PUBLIC (https://github.com/arrelpoblete04/GolangBackend)
+    - name: revision
+      value: master 

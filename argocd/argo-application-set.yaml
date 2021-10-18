@@ -16,6 +16,26 @@ spec:
           path: GoBackend
           files: 'values.yaml'
           project: default
+
+      - cluster: greenfire
+        url: https://74.220.27.187:6443
+        values:
+          namespace: default
+          repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+          targetRevision: master
+          path: GoBackend
+          files: 'values.yaml'
+          project: default
+      
+      - cluster: greenfire-stage
+        url: https://74.220.27.187:6443
+        values:
+          namespace: default
+          repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+          targetRevision: stage
+          path: GoBackend
+          files: 'values-stage.yaml'
+          project: default
             
       - cluster: stage
         url: https://kubernetes.default.svc
