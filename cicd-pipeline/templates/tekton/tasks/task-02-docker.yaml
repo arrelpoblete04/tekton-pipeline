@@ -3,9 +3,9 @@ kind: Task
 metadata:
   name: golang-task-two-docker-build-push
 spec:
-  params:
-    - name: IMAGE_REPO
-      description: The image registry
+  # params:
+  #   - name: IMAGE_REPO
+  #     description: The image registry
   resources:
     inputs:
       - name: repo
@@ -22,8 +22,14 @@ spec:
       script: |
          #!/busybox/sh
          echo "Start Docker Build and Push"
-         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(awk 'NR == 24' GoBackend/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
-         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' GoBackend/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
+         registry=`awk 'NR == 6' GoBackend/values.yaml | cut -d':' -f2 | cut -d' ' -f2`
+         image=`awk 'NR == 7' GoBackend/values.yaml | cut -d':' -f2 | cut -d' ' -f2`
+         tag=`awk 'NR == 24' GoBackend/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2`
+         imageRepo=$registry/$image
+
+
+         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$imageRepo:$tag
+         echo "Image Built: " $imageRepo:$tag
          echo "End Docker Build and Push"
 --- 
 
