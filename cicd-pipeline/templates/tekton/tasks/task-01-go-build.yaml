@@ -30,8 +30,6 @@ spec:
         go test $(params.FLAGS) $(params.packages)
         echo "Task 1 - End Golang Unit Test"
       env:
-        - name: VARIABLE
-          value: "$(params.VARIABLE)"
         - name: GOOS
           value: "$(params.GOOS)"
         - name: CGO_ENABLED
