@@ -1,16 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: argo-application-set
+  name: argo-application-set1
   namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
   - list:
       elements:
       - cluster: development
-        url: https://74.220.24.30:6443
+        url: https://74.220.25.133:6443
         values:
           namespace: default
           repoURL: git@github.com:arrelpoblete04/GolangBackend.git
@@ -20,7 +18,7 @@ spec:
           project: default
       
       - cluster: stage
-        url: https://74.220.27.92:6443
+        url: https://74.220.26.33:6443
         values:
           namespace: default
           repoURL: git@github.com:arrelpoblete04/GolangBackend.git
@@ -40,9 +38,9 @@ spec:
       project: '{{values.project}}'
       syncPolicy:
         automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-           prune: false # Specifies if resources should be pruned during auto-syncing ( false by default ).
+           prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
            selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
-           allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
+           allowEmpty: true # Allows deleting all application resources during automatic syncing ( false by default ).
       source:
         repoURL: '{{values.repoURL}}'
         targetRevision: '{{values.targetRevision}}'
