@@ -31,16 +31,6 @@ spec:
              #  type: boolean
               # value: true
 
-      - cluster: whitelotus
-        url: https://kubernetes.default.svc
-        values:
-          namespace: default
-          repoURL: git@github.com:arrelpoblete04/tekton-pipeline.git
-          targetRevision: master
-          path: cicd-pipeline
-          files: 'values.yaml'
-          project: default
-
   template:
     metadata:
       name: '{{cluster}}-argo-tekton-pipeline'
