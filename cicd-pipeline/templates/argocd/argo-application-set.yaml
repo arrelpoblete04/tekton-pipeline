@@ -8,7 +8,7 @@ spec:
   - list:
       elements:
       - cluster: development
-        url: https://74.220.25.133:6443
+        url: https://74.220.25.95:6443
         values:
           namespace: default
           repoURL: git@github.com:arrelpoblete04/GolangBackend.git
@@ -18,7 +18,7 @@ spec:
           project: default
       
       - cluster: stage
-        url: https://74.220.26.33:6443
+        url: https://74.220.25.147:6443
         values:
           namespace: default
           repoURL: git@github.com:arrelpoblete04/GolangBackend.git
@@ -30,6 +30,16 @@ spec:
            #  - name: prune
              #  type: boolean
               # value: true
+
+      - cluster: whitelotus
+        url: https://kubernetes.default.svc
+        values:
+          namespace: default
+          repoURL: git@github.com:arrelpoblete04/tekton-pipeline.git
+          targetRevision: master
+          path: cicd-pipeline
+          files: 'values.yaml'
+          project: default
 
   template:
     metadata:
