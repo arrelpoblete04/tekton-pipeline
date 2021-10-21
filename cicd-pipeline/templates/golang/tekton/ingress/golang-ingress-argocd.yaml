@@ -1,17 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-github
+  name: ingress-argo
+  namespace: argocd
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-     - host: whitelotus.development.ns1.civo.com #host dns
+     - host: whitelotus.development.ns0.civo.com #host dns
        http:
         paths:
-          - path: /hooks
-            pathType: Exact
+          - path: /
+            pathType: Prefix
             backend:
-              serviceName: el-github-pr
-              servicePort: 8080
+              serviceName: argocd-server
+              servicePort: 443

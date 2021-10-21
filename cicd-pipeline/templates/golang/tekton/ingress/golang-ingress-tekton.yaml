@@ -1,7 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-github
+  name: ingress-tekton
+  namespace: tekton-pipelines
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web
@@ -10,8 +11,8 @@ spec:
      - host: whitelotus.development.ns1.civo.com #host dns
        http:
         paths:
-          - path: /hooks
+          - path: /
             pathType: Exact
             backend:
-              serviceName: el-github-pr
-              servicePort: 8080
+              serviceName: tekton-dashboard
+              servicePort: 9097
