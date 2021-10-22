@@ -8,7 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-     - host: psbonline-tekton.development.ns1.civo.com #host dns
+     - host: psbonline-tekton.main.ns1.civo.com #host dns
        http:
         paths:
           - path: /
