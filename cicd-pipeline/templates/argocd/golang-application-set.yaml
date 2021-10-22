@@ -31,6 +31,16 @@ spec:
              #  type: boolean
               # value: true
 
+      - cluster: development-dotnet
+        url: https://74.220.25.95:6443
+        values:
+          namespace: default
+          repoURL: git@github.com:arrelpoblete04/aspnetcoreapp.git
+          targetRevision: master
+          path: ASPNetCore
+          files: 'values.yaml'
+          project: default
+
   template:
     metadata:
       name: '{{cluster}}-argo-tekton-pipeline'

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-github-dotnet
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+     - host: psbonline-dotnet-github.main.ns1.civo.com #host dns
+       http:
+        paths:
+          - path: /dot
+            pathType: Exact
+            backend:
+              serviceName: el-github-dotnet-pr
+              servicePort: 8080

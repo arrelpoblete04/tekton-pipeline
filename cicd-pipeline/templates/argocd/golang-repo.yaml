@@ -15,6 +15,13 @@ data:
         name: private-repo-creds
       type: git
       url: git@github.com:arrelpoblete04/GolangBackend.git
+    - name: ASPNetCore
+      sshPrivateKeySecret:
+        key: sshPrivateKey
+        name: private-repo-creds
+      type: git
+      url: git@github.com:arrelpoblete04/aspnetcoreapp.git
+    
 
 ---
 

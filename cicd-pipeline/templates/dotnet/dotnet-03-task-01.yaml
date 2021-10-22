@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: dotnet-task-two-docker-build-push
+spec:
+  params:
+    - name: IMAGE_REPO
+      description: The image registry
+  resources:
+    inputs:
+      - name: repo
+        type: git
+  steps:
+
+  ## ----------- Task 1 ----------- 
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:debug-v0.19.0
+      workingDir: /workspace/repo
+      env:
+        - name: DOCKER_CONFIG
+          value: /tekton/home/.docker
+      script: |
+         #!/busybox/sh
+         echo "Start Docker Build and Push"
+         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(awk 'NR == 24' ASPNetCore/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
+         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' ASPNetCore/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2) echo "End Docker Build and Push"
