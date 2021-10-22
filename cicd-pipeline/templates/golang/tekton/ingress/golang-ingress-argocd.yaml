@@ -8,7 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-     - host: whitelotus.development.ns0.civo.com #host dns
+     - host: psbonline-argocd.development.ns1.civo.com #host dns
        http:
         paths:
           - path: /
