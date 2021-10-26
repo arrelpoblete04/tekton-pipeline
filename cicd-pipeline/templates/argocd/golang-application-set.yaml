@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: argo-application-set1
+  name: argo-application-set
   namespace: argocd
 spec:
   generators:
@@ -11,9 +11,9 @@ spec:
         url: https://74.220.25.95:6443
         values:
           namespace: default
-          repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+          repoURL: git@github.com:arrelpoblete04/Atlas.git
           targetRevision: master
-          path: GoBackend
+          path: Atlas
           files: 'values.yaml'
           project: default
       
@@ -21,7 +21,7 @@ spec:
         url: https://74.220.25.147:6443
         values:
           namespace: default
-          repoURL: git@github.com:arrelpoblete04/GolangBackend.git
+          repoURL: git@github.com:arrelpoblete04/Atlas.git
           targetRevision: stage
           path: Atlas
           files: 'values-stage.yaml'

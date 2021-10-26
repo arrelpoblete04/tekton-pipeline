@@ -9,12 +9,12 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   repositories: |
-    - name: GoBackend
+    - name: Atlas
       sshPrivateKeySecret:
         key: sshPrivateKey
         name: private-repo-creds
       type: git
-      url: git@github.com:arrelpoblete04/GolangBackend.git
+      url: git@github.com:arrelpoblete04/Atlas.git
     - name: ASPNetCore
       sshPrivateKeySecret:
         key: sshPrivateKey
