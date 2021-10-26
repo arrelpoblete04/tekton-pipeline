@@ -9,12 +9,12 @@ spec:
 
   tasks:
      # Build docker image and push to registry
-    - name: stage-two-build-and-push
+    - name: stage-one-build-and-push
       params: ## These are the params needed on the Task two
           - name: IMAGE_REPO
             value: 'registry.ns0.civo.com/dotnet/images'
       taskRef:
-        name: dotnet-task-two-docker-build-push
+        name: dotnet-task-one-docker-build-push
       # runAfter: ## With this spec, this task will only run after the stage-one-go-build
       #   - stage-one-go-build
       resources:

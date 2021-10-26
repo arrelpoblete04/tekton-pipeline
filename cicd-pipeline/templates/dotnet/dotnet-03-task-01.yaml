@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: dotnet-task-two-docker-build-push
+  name: dotnet-task-one-docker-build-push
 spec:
   params:
     - name: IMAGE_REPO

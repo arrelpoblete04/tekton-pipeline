@@ -22,8 +22,9 @@ spec:
       script: |
          #!/busybox/sh
          echo "Start Docker Build and Push"
-         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(awk 'NR == 24' GoBackend/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
-         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' GoBackend/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
+
+         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(awk 'NR == 24' Atlas/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
+         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' Atlas/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
          echo "End Docker Build and Push"
 --- 
 
