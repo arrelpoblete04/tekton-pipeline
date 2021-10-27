@@ -13,8 +13,6 @@ spec:
       params:  ## These are the params needed on the Task one
         - name: CGO_ENABLED
           value: "0"
-        - name: FLAGS
-          value: "-v"
         - name: GOOS
           value: "linux"
         - name: packages

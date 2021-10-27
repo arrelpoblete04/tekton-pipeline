@@ -5,11 +5,7 @@ metadata:
 spec:
   params:
     - name: CGO_ENABLED
-      description: "packages to build (default: ./...)"  ## description is optional.
-    - name: FLAGS
-      description: "packages to build (default: ./...)"  ## description is optional.
     - name: GOOS
-      description: "packages to build (default: ./...)"  ## description is optional.
     - name: packages
       description: "packages to build (default: ./...)"  ## description is optional.
     - name: DEST_FOLDER
@@ -27,7 +23,7 @@ spec:
       workingDir: /workspace/repo
       script: |
         echo "Task 1 - Start Golang Unit Test"
-        go test $(params.FLAGS) $(params.packages)
+        go test -v $(params.packages)
         echo "Task 1 - End Golang Unit Test"
       env:
         - name: GOOS
