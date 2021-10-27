@@ -9,7 +9,7 @@ spec:
 
   tasks:
   # Run unit test, Security Check and Go Build
-    - name: stage-one-go-build
+    - name: task-one-go-validate
       params:  ## These are the params needed on the Task one
         - name: CGO_ENABLED
           value: "0"
@@ -24,17 +24,17 @@ spec:
           - name: repo
             resource: repo
       taskRef: #Name of the Task Reference
-        name: golang-task-one-go-build
+        name: task-go-validate
 
      # Build docker image and push to registry
-    - name: stage-two-build-and-push
+    - name: task-two-build-and-push
       params: ## These are the params needed on the Task two
           - name: IMAGE_REPO
             value: 'registry.ns0.civo.com/images/golangbackend'
       taskRef:
-        name: golang-task-two-docker-build-push
+        name: task-build-and-push
       runAfter: ## With this spec, this task will only run after the stage-one-go-build
-        - stage-one-go-build
+        - task-one-go-validate
       resources:
         inputs:
           - name: repo      # name of the Task input (see Task definition)

@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: golang-task-two-docker-build-push
+  name: task-build-and-push
 spec:
   params:
     - name: IMAGE_REPO
@@ -13,7 +13,7 @@ spec:
   steps:
 
   ## ----------- Task 1 ----------- 
-    - name: build-and-push
+    - name: step-build-and-push
       image: gcr.io/kaniko-project/executor:debug-v0.19.0
       workingDir: /workspace/repo
       env:
