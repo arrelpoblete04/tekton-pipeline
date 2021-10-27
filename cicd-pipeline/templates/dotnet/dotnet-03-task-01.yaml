@@ -23,4 +23,5 @@ spec:
          #!/busybox/sh
          echo "Start Docker Build and Push"
          /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(awk 'NR == 24' ASPNetCore/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
-         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' ASPNetCore/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2) echo "End Docker Build and Push"
+         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' ASPNetCore/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2) 
+         echo "End Docker Build and Push"
