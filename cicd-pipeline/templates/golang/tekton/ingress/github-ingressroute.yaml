@@ -1,0 +1,32 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: github-cert
+  labels:
+    "use-http01-solver": "true"
+spec:
+  commonName: github.cicd.psbulap.com
+  secretName: github-tls-staging
+  dnsNames:
+    - github.cicd.psbulap.com
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: github-ingressroute
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(github.cicd.psbulap.com) 
+      services:
+        - kind: Service
+          name: el-github-pr
+          port: 8080
+  tls:
+    secretName: github-tls-staging
