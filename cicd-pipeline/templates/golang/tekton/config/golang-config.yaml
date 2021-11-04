@@ -3,10 +3,10 @@ kind: Secret
 metadata:
   name: basic-user-pass
   annotations:
-    tekton.dev/docker-0: registry.ns0.civo.com
+    tekton.dev/docker-0: registry.psbulap.com
 type: kubernetes.io/basic-auth
 data:
-    username: YXJyZWxwb2JsZXRl  ## https://www.base64decode.org/ -> encode
+    username: YXBvYmxldGU5Ng==  ## https://www.base64decode.org/ -> encode
     password: UGFzc3dvcmQxMjM0NQ==  ## https://www.base64decode.org/ -> encode
 
 --- 
