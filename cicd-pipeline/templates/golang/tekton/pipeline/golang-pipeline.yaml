@@ -65,6 +65,6 @@ spec:
 #   type: git
 #   params:
 #     - name: url
-#       value: git@github.com:arrelpoblete04/GolangBackend.git #Use this if the repo is PRIVATE, use https URL if repo is PUBLIC (https://github.com/arrelpoblete04/GolangBackend)
+#       value: git@github.com:arrelpoblete04/Atlas.git #Use this if the repo is PRIVATE, use https URL if repo is PUBLIC (https://github.com/arrelpoblete04/GolangBackend)
 #     - name: revision
 #       value: master 
