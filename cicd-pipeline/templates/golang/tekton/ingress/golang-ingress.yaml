@@ -7,7 +7,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-     - host: psbonline-github.main.ns1.civo.com #host dns
+     - host: github.cicd.psbulap.com #host dns
        http:
         paths:
           - path: /hooks
