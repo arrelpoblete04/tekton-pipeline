@@ -1,0 +1,35 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tekton-cert
+  namespace: tekton-pipelines
+  labels:
+    "use-http01-solver": "true"
+spec:
+  commonName: tekton.cicd.psbulap.com
+  secretName: tekton-tls-staging
+  dnsNames:
+    - tekton.cicd.psbulap.com
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tekton-ingressroute
+  namespace: tekton-pipelines
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(tekton.cicd.psbulap.com) 
+      services:
+        - kind: Service
+          name: tekton-dashboard
+          namespace: tekton-pipelines
+          port: 9097
+  tls:
+    secretName: tekton-tls-staging
