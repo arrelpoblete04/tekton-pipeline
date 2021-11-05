@@ -5,6 +5,11 @@ metadata:
   namespace: default
 spec:
   project: default
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+         prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+         selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+         allowEmpty: true
   source:
     repoURL: git@github.com:arrelpoblete04/Atlas.git
     targetRevision: master
@@ -13,5 +18,5 @@ spec:
       valueFiles:
         - 'values.yaml'
   destination:
-    server: https://212.2.241.234:6443
+    server: https://kubenetes.default.svc
     namespace: default
