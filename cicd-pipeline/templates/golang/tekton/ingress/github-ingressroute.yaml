@@ -23,7 +23,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(github.cicd.psbulap.com) 
+      match: Host(`github.cicd.psbulap.com`) 
       services:
         - kind: Service
           name: el-github-pr
