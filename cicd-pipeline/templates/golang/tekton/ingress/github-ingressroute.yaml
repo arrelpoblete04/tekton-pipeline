@@ -3,6 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: github-cert
+  namespace: tekton-pipelines
   labels:
     "use-http01-solver": "true"
 spec:
@@ -18,6 +19,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: github-ingressroute
+  namespace: tekton-pipelines
 spec:
   entryPoints:
     - websecure
@@ -28,5 +30,6 @@ spec:
         - kind: Service
           name: el-github-pr
           port: 8080
+          namespace: tekton-pipelines
   tls:
     secretName: github-tls-staging

@@ -2,11 +2,13 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: basic-user-pass
+  namespace: tekton-pipelines
   annotations:
     tekton.dev/docker-0: registry.psbulap.com
+    #tekton.dev/docker-0: https://index.docker.io/v1/
 type: kubernetes.io/basic-auth
 data:
-    username: YXBvYmxldGU5Ng==  ## https://www.base64decode.org/ -> encode
+    username: YXJyZWxwb2JsZXRl  ## https://www.base64decode.org/ -> encode
     password: UGFzc3dvcmQxMjM0NQ==  ## https://www.base64decode.org/ -> encode
 
 --- 
@@ -15,6 +17,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: git-user
+  namespace: tekton-pipelines
   annotations:
     tekton.dev/git-0: github.com
 type: kubernetes.io/ssh-auth
@@ -27,6 +30,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: golang-service-account
+  namespace: tekton-pipelines
 secrets:
   - name: basic-user-pass # Credentials for container registry
   - name: git-user # Credentials for private git repository.
@@ -37,6 +41,42 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: github-interceptor-secret
+  namespace: tekton-pipelines
 type: Opaque
 data:
   secretToken: MTIzNDU2Nw== ## secret token from github webhook
+
+---
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tekton-role
+  namespace: tekton-pipelines
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces", "services", "configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: [ "deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["clusterroles"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+--- 
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: test
+  namespace: tekton-pipelines
+subjects:
+  - kind: ServiceAccount
+    name: golang-service-account
+roleRef:
+  kind: Role
+  name: tekton-role
+  apiGroup: rbac.authorization.k8s.io

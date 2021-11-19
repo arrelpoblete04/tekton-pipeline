@@ -1,63 +1,40 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: argo-application-set
-  namespace: argocd
-spec:
-  generators:
-  - list:
-      elements:
-      - cluster: development
-        url: https://74.220.25.95:6443
-        values:
-          namespace: default
-          repoURL: git@github.com:arrelpoblete04/Atlas.git
-          targetRevision: master
-          path: Atlas
-          files: 'values.yaml'
-          project: default
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: argo-application-set
+#   namespace: argocd
+# spec:
+#   generators:
+#   - list:
+#       elements:
+#       - cluster: development
+#         url: https://kubenetes.default.svc
+#         values:
+#           namespace: default
+#           repoURL: git@github.com:arrelpoblete04/Atlas.git
+#           targetRevision: master
+#           path: Atlas
+#           files: 'values.yaml'
+#           project: default
       
-      - cluster: stage
-        url: https://74.220.25.147:6443
-        values:
-          namespace: default
-          repoURL: git@github.com:arrelpoblete04/Atlas.git
-          targetRevision: staging
-          path: Atlas
-          files: 'values-staging.yaml'
-          project: default
-          #automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-           #  - name: prune
-             #  type: boolean
-              # value: true
 
-      - cluster: development-dotnet
-        url: https://74.220.25.95:6443
-        values:
-          namespace: default
-          repoURL: git@github.com:arrelpoblete04/aspnetcoreapp.git
-          targetRevision: master
-          path: ASPNetCore
-          files: 'values.yaml'
-          project: default
-
-  template:
-    metadata:
-      name: '{{cluster}}-argo-tekton-pipeline'
-    spec:
-      project: '{{values.project}}'
-      syncPolicy:
-        automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-           prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
-           selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
-           allowEmpty: true # Allows deleting all application resources during automatic syncing ( false by default ).
-      source:
-        repoURL: '{{values.repoURL}}'
-        targetRevision: '{{values.targetRevision}}'
-        path: '{{values.path}}'
-        helm:
-          valueFiles: 
-            - '{{values.files}}'
-      destination:
-        server: '{{url}}'
-        namespace: '{{values.namespace}}'
+#   template:
+#     metadata:
+#       name: '{{cluster}}-argo-tekton-pipeline'
+#     spec:
+#       project: '{{values.project}}'
+#       syncPolicy:
+#         automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+#            prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+#            selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+#            allowEmpty: true # Allows deleting all application resources during automatic syncing ( false by default ).
+#       source:
+#         repoURL: '{{values.repoURL}}'
+#         targetRevision: '{{values.targetRevision}}'
+#         path: '{{values.path}}'
+#         helm:
+#           valueFiles: 
+#             - '{{values.files}}'
+#       destination:
+#         server: '{{url}}'
+#         namespace: '{{values.namespace}}'

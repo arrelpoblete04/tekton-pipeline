@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: github-pr
+  namespace: tekton-pipelines
 spec:
   serviceAccountName: tekton-triggers-golang-service-account
   triggers:

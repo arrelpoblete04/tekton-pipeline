@@ -1,19 +1,19 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: ingress-argo
-  namespace: argocd
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/force-ssl-redirect: "true"
-    traefik.ingress.kubernetes.io/backend-protocol: "HTTP"
-spec:
-  rules:
-     - host: psbonline-argocd.main.ns1.civo.com #host dns
-       http:
-        paths:
-          - backend:
-              serviceName: argocd-server
-              servicePort: http
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ingress-argo
+#   namespace: argocd
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     traefik.ingress.kubernetes.io/router.entrypoints: web
+#     traefik.ingress.kubernetes.io/force-ssl-redirect: "true"
+#     traefik.ingress.kubernetes.io/backend-protocol: "HTTP"
+# spec:
+#   rules:
+#      - host: psbonline-argocd.main.ns1.civo.com #host dns
+#        http:
+#         paths:
+#           - backend:
+#               serviceName: argocd-server
+#               servicePort: http
 

@@ -1,18 +1,18 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: ingress-tekton
-  namespace: tekton-pipelines
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-spec:
-  rules:
-     - host: psbonline-tekton.main.ns1.civo.com #host dns
-       http:
-        paths:
-          - path: /
-            pathType: Exact
-            backend:
-              serviceName: tekton-dashboard
-              servicePort: 9097
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ingress-tekton
+#   namespace: tekton-pipelines
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     traefik.ingress.kubernetes.io/router.entrypoints: web
+# spec:
+#   rules:
+#      - host: psbonline-tekton.main.ns1.civo.com #host dns
+#        http:
+#         paths:
+#           - path: /
+#             pathType: Exact
+#             backend:
+#               serviceName: tekton-dashboard
+#               servicePort: 9097

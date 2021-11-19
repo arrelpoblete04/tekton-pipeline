@@ -2,12 +2,15 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: github-pr-pipeline-template
+  namespace: tekton-pipelines
 spec:
   params:
     - name: gitrevision
       description: The git revision (SHA)
     - name: gitrepositoryurl
       description: The git repository url
+    - name: gitbranch
+      description: The git branch
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -17,6 +20,9 @@ spec:
         serviceAccountName: golang-service-account
         pipelineRef:
           name: golang-pipeline
+        params:
+        - name: gitbranch
+          value: $(tt.params.gitbranch)
         resources:
           - name: repo
             resourceSpec:
@@ -26,3 +32,4 @@ spec:
                   value: $(tt.params.gitrevision)
                 - name: url
                   value: $(tt.params.gitrepositoryurl)
+                

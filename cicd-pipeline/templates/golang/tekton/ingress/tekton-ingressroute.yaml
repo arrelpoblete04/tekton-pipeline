@@ -25,7 +25,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(tekton.cicd.psbulap.com) 
+      match: Host(`tekton-dev.cicd.psbulap.com`) 
       services:
         - kind: Service
           name: tekton-dashboard

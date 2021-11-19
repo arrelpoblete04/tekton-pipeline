@@ -2,10 +2,11 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: task-build-and-push
+  namespace: tekton-pipelines
 spec:
   params:
-    - name: IMAGE_REPO
-      description: The image registry
+    - name: gitbranch
+      description: The branch of the repo
   resources:
     inputs:
       - name: repo
@@ -22,9 +23,18 @@ spec:
       script: |
          #!/busybox/sh
          echo "Start Docker Build and Push"
+         expected=refs/heads/master
+         echo Git branch: $(params.gitbranch)
+         file=$(echo $expected  $(params.gitbranch) | awk '{ print ($1 == $2) ? "values.yaml" : "values-staging.yaml" }')
+         echo Helm Value: $file
+         tag=$(awk '/appVersion/' Atlas/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
+         repo=$(awk '/repo/' Atlas/$file | cut -d':' -f2 | cut -d' ' -f2)
+         image=$(awk '/image/' Atlas/$file | cut -d':' -f2 | cut -d' ' -f2)
+         imagetag=$repo/$image:$tag
+         echo Imagetag to be pushed: $imagetag
 
-         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$(params.IMAGE_REPO):$(awk 'NR == 24' Atlas/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
-         echo "Image Built: " $(params.IMAGE_REPO):$(awk 'NR == 24' Atlas/Chart.yaml | cut -d':' -f2 | cut -d' ' -f2)
+         /kaniko/executor --dockerfile Dockerfile  --context `pwd` --destination=$imagetag
+         echo "Image Built: " $imagetag
          echo "End Docker Build and Push"
 --- 
 

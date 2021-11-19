@@ -2,9 +2,12 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: github-pr-binding
+  namespace: tekton-pipelines
 spec:
   params:
     - name: gitrepositoryurl
-      value: $(body.repository.ssh_url)
+      value: $(body.repository.git_url)
     - name: gitrevision
       value: $(body.head_commit.id)
+    - name: gitbranch
+      value: $(body.ref)

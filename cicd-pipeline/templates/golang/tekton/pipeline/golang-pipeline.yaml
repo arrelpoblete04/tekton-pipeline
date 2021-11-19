@@ -2,7 +2,11 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: golang-pipeline
+  namespace: tekton-pipelines
 spec:
+  params:
+    - name: gitbranch
+      description: Git branch of the repository
   resources:
     - name: repo
       type: git
@@ -29,8 +33,8 @@ spec:
      # Build docker image and push to registry
     - name: task-two-build-and-push
       params: ## These are the params needed on the Task two
-          - name: IMAGE_REPO
-            value: 'registry.psbulap.com/development/atlas'
+          - name: gitbranch
+            value: $(params.gitbranch)
       taskRef:
         name: task-build-and-push
       runAfter: ## With this spec, this task will only run after the stage-one-go-build
@@ -57,14 +61,15 @@ spec:
 #      name: golang-pipeline-resource
 
 #--- 
-apiVersion: tekton.dev/v1alpha1
-kind: PipelineResource
-metadata:
-  name: golang-pipeline-resource
-spec:
-  type: git
-  params:
-    - name: url
-      value: git@github.com:arrelpoblete04/Atlas.git #Use this if the repo is PRIVATE, use https URL if repo is PUBLIC (https://github.com/arrelpoblete04/GolangBackend)
-    - name: revision
-      value: master 
+# apiVersion: tekton.dev/v1alpha1
+# kind: PipelineResource
+# metadata:
+#   name: golang-pipeline-resource
+#   namespace: cicd-pipelines
+# spec:
+#   type: git
+#   params:
+#     - name: url
+#       value: git@github.com:arrelpoblete04/Atlas.git #Use this if the repo is PRIVATE, use https URL if repo is PUBLIC (https://github.com/arrelpoblete04/GolangBackend)
+#     - name: revision
+#       value: master 

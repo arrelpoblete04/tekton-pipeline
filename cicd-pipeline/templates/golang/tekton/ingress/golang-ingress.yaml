@@ -1,17 +1,17 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: ingress-github
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-spec:
-  rules:
-     - host: github.cicd.psbulap.com #host dns
-       http:
-        paths:
-          - path: /hooks
-            pathType: Exact
-            backend:
-              serviceName: el-github-pr
-              servicePort: 8080
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ingress-github
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     traefik.ingress.kubernetes.io/router.entrypoints: web
+# spec:
+#   rules:
+#      - host: github.cicd.psbulap.com #host dns
+#        http:
+#         paths:
+#           - path: /hooks
+#             pathType: Exact
+#             backend:
+#               serviceName: el-github-pr
+#               servicePort: 8080
